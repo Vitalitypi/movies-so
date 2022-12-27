@@ -5,16 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
+    value:'',
     current:8,
     // engine:'1、默认引擎（速度较快）',
     engines: ['1、资源简单（速度快）', '2、阿里盘搜（不推荐）', '3、电报（tg）搜索', '4、影视资源较多', '5、考试资源为主','6、学习资源较多','7、资源较为综合','8、优质资源（推荐）'],
     show:false,
-    pages:['small','nice','qianfan','yiso','upso','xueso','zhaoso','qianpan']
+    textShow:false,
+    pages:['small','nice','qianfan','yiso','upso','xueso','zhaoso','qianpan'],
+    engineChanged:false,//记录搜索引擎是否变化
+  },
+  openText(){
+    this.setData({
+      textShow:true
+    })
+  },
+  closeText(){
+    this.setData({
+      textShow:false
+    })
   },
   onConfirm(event) {
     this.setData({
       current:event.detail.index+1,
-      show:false
+      show:false,
+      engineChanged:true
     })
   },
   onCancel() {
@@ -28,17 +42,29 @@ Page({
   onClose() {
     this.setData({ show: false });
   },
+  onChange(e){
+    this.setData({
+      value:e.detail
+    })
+  },
   onSearch(e){
-    console.log(e.detail)
-    if(e.detail==''){
+    if(this.data.value.length==0){
       return
     }
+    if(this.data.engineChanged){
+      this.setData({
+        engineChanged:false
+      })
+      // 写入本地缓存,记录上次选择的引擎
+      wx.setStorageSync('engine', this.data.current);
+    }
+    let keyword = this.data.value
     this.setData({
       value:''
     })
     let page = this.data.pages[this.data.current-1]
     wx.navigateTo({
-      url: '../source/'+page+'/index?keyword='+e.detail,
+      url: '../source/'+page+'/index?keyword='+keyword,
     })
   },
   copy(e){
@@ -55,7 +81,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let index = wx.getStorageSync('engine')
+    if(index>0){
+      this.setData({
+        current:index
+      })
+    }
   },
 
   /**
