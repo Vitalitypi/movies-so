@@ -1,0 +1,60 @@
+<!--pages/search/index.wxml-->
+<view class="page" style="height: 100%;">
+  
+  <view class="img">
+  <view style="width: 97%;text-align: right;">
+    点击上方···添加到我的小程序
+  </view>
+    <image 
+    style="width: 100%;"
+    mode="aspectFit"
+    src="../../images/img/des.png">
+    </image>
+    <!-- <van-image
+      width="25rem"
+      height="10rem"
+      fit="scale-down"
+      src="https://7669-vitality-demo-3gkc3akf11339670-1302392905.tcb.qcloud.la/FastDog/images/antiroll.jpeg?sign=e7f841dfaac135b8032f55d0c8d8d0dc&t=1671689084"
+    /> -->
+  </view>
+  <view>
+    <van-cell-group>
+      <van-cell size='large' title="当前搜索引擎：" title-width='50%' is-link bind:click="showPopup" value="{{engines[current-1]}}" />
+    </van-cell-group>
+  </view>
+  <van-search
+    value="{{ value }}"
+    shape="round"
+    bind:search="onSearch"
+    background="#000000"
+    placeholder="请输入搜索关键词"
+  />
+  <view>
+    <van-cell-group  >
+      <van-cell size='large' title="使用说明："/>
+      <van-cell title="1、不同搜索引擎特点不同，更换引擎获取精彩内容" border="{{false}}"/>
+      <van-cell title="2、资源来源于网络，小程序不保存相关内容" border="{{false}}"/>
+      <van-cell title="3、建议喜欢的用户分享小程序，不建议传播资源" border="{{false}}"/>
+      <van-cell title="4、资源搜索过程可能较慢，请大家等待" border="{{false}}"/>
+      <van-cell title="5、小程序努力更新，望大家喜欢" border="{{false}}"/>
+      <van-cell title="6、有任何疑问欢迎联系微信：FastDogging（点击复制）" bindtap="copy" border="{{false}}"/>
+    </van-cell-group>
+  </view>
+  <van-popup
+    show="{{ show }}"
+    position="bottom"
+    custom-style="height: 45%;"
+    bind:close="onClose"
+  >
+    <van-picker
+      show-toolbar
+      title="选择搜索引擎"
+      round
+      default-index="{{ current-1 }}"
+      columns="{{ engines }}"
+      bind:cancel="onCancel"
+      bind:confirm="onConfirm"
+    />
+  </van-popup>
+</view>
+

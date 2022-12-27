@@ -1,0 +1,31 @@
+<!--pages/source/nice/info.wxml-->
+
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <van-empty description="资源较大请稍候！" wx:if="{{root==''}}"/>
+
+<view wx:if="{{root!=''}}" style="margin-bottom: 10%;">
+  <view style="margin-bottom: 2%;">
+    <van-cell-group inset>
+      <van-cell title="详细信息如下，点击即可复制链接！"/>
+    </van-cell-group>
+  </view>
+
+  <view>
+    <van-cell-group inset>
+      <van-cell title="总文件夹：{{title}}" bindtap="copy" data-index="root"/>
+    </van-cell-group>
+    <van-cell-group inset wx:for="{{des}}">
+      <van-cell title="{{des[index].title}}" bindtap="copy" data-index="{{index}}"/>
+    </van-cell-group>
+  </view>
+
+  <view style="margin-top: 3%;">
+    <van-cell-group inset wx:if="{{des.length==10}}">
+      <van-cell title="由于文件过大，仅展示前10条信息...请自行打开“总文件夹”查看其他信息哦！"/>
+    </van-cell-group>
+    <!-- <view style='border:0;text-align: center;padding-top: 2%;padding-bottom: 3%;'><text style="color: #666;">-我是有底线的-</text></view> -->
+    
+  </view>
+</view>
+</van-skeleton>

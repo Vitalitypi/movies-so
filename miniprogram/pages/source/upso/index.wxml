@@ -1,0 +1,59 @@
+<!--pages/source/upso/index.wxml-->
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <view style="margin-bottom: 10%;" wx:if="{{list.length!=0}}">
+  <view style="margin-bottom: 4%;">
+    <van-cell-group inset >
+      <van-cell title="当前为：第{{page}}页（点击相应卡片即可复制内容）"/>
+    </van-cell-group>
+  </view>
+
+  <van-cell-group inset wx:for="{{list}}" wx:key="index">
+    <view style="margin-bottom: 4%;">
+      <van-cell title="资源名称：{{list[index].title}}" label='有效时间：{{list[index].available_time}} 收录时间：{{list[index].insert_time}} 'bindtap="copy" data-index="{{index}}"/>
+      <van-collapse value="{{ activeNames }}" bind:change="onChange">
+        <van-collapse-item title="查看详细内容" name="{{index}}">
+          <van-cell-group wx:if="{{list[index].content.length>0}}">
+            <van-cell wx:for="{{list[index].content}}" wx:key="index" label='{{item.title}}' border="{{false}}" />
+          </van-cell-group>
+          <van-cell-group wx:else>
+            <van-cell label='暂时没有详细内容哦~请自行查看！' border="{{false}}" />
+          </van-cell-group>
+        </van-collapse-item>
+      </van-collapse>
+    </view>
+  </van-cell-group>
+
+  <view style="margin-left: 1%;margin-right: 1%;margin-top: 5%;">
+    <van-row>
+      <van-col span="6" offset='2'><van-button type="info" bindtap="getNewPage" data-sign="head" disabled='{{page==1}}'>首页</van-button></van-col>
+      <van-col span="6" offset='2'><van-button type="info" bindtap="getNewPage" data-sign="prev" disabled='{{page==1}}'>上页</van-button></van-col>
+      <van-col span="6" offset='2'><van-button type="info" bindtap="getNewPage" data-sign="next" >下页</van-button></van-col>
+      <!-- <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="last" disabled='{{page==totalPage}}'>末  页</van-button></van-col> -->
+    </van-row>
+    <view class="jump" style="margin-left: 6%;margin-right: 6%;margin-top: 2%;">
+      <van-cell-group>
+        <van-field
+          value="{{ aim }}"
+          type='phone'
+          bind:input='input'
+          center
+          clearable
+          label="页面跳转："
+          placeholder="请输入页码"
+          border="{{ false }}"
+          use-button-slot
+        >
+          <van-button slot="button" bindtap="jumpPage" size="small" type="info">
+            点击跳转
+          </van-button>
+        </van-field>
+      </van-cell-group>
+    </view>
+  </view>
+  
+</view>
+
+<van-empty description="请更换搜索引擎再试试吧！" wx:if="{{list.length==0}}"/>
+
+</van-skeleton>

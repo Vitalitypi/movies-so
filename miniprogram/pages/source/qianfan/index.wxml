@@ -1,0 +1,25 @@
+<!--pages/source/qianfan/index.wxml-->
+<!-- 一个页面显示所有 -->
+
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <view style="margin-bottom: 10%;" wx:if="{{list.length!=0}}">
+  <van-cell-group inset>
+    <van-cell title="当前为：第{{page}}/{{totalPage}}页（点击相应即可复制内容）"/>
+  </van-cell-group>
+  <van-cell-group inset wx:for="{{list}}" wx:key="index">
+    <van-cell title="{{list[index].time}}" label="{{list[index].info}}" bindtap="copy" data-index="{{index}}" />
+  </van-cell-group>
+  <view style="margin-left: 1%;margin-right: 1%;margin-top: 5%;">
+    <van-row>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="head" disabled='{{page==1}}'>首页</van-button></van-col>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="prev" disabled='{{page==1}}'>上页</van-button></van-col>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="next" disabled='{{page==totalPage}}'>下页</van-button></van-col>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="last" disabled='{{page==totalPage}}'>末  页</van-button></van-col>
+    </van-row>
+  </view>
+</view>
+
+<van-empty description="请更换搜索引擎再试试吧！" wx:if="{{list.length==0}}"/>
+
+</van-skeleton>

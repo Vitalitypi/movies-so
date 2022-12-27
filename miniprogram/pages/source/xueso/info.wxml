@@ -1,0 +1,16 @@
+<!--pages/source/xueso/info.wxml-->
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <van-empty description="资源较大请稍候！" wx:if="{{article==''}}"/>
+
+  <view wx:else style="margin-bottom: 10%;">
+    <van-cell-group inset>
+      <van-cell title="{{article.title}}（点我即可复制内容）" bindtap="copy"/>
+      <van-cell label="{{article.des}}" border="{{false}}"/>
+      <van-cell label="{{article.info}}" border="{{false}}"/>
+      <van-cell label="{{article.time}}" border="{{ false }}"/>
+    </van-cell-group>
+
+  </view>
+
+</van-skeleton>

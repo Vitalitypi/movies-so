@@ -1,0 +1,32 @@
+<!--pages/source/small/index.wxml-->
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <view style="margin-bottom: 10%;margin-top: 5%;" wx:if="{{list.length!=0}}">
+  <van-cell-group inset>
+    <van-cell title="信息如下（点击链接即可复制）："/>
+  </van-cell-group>
+  <van-cell-group inset wx:for="{{list}}" wx:key="index">
+    <view style="margin-top: 5%;">
+    <!-- <van-cell title="{{item.label}}" /> -->
+    <van-cell title="{{list[index].title}}" label="{{list[index].digest}}" url="./info?link={{list[index].link}}&title={{list[index].title}}" />
+    <van-cell label="链接：{{'https://www.aliyundrive.com/s/'+item.key}}" is-border="{{false}}" bindtap="copy" data-index="{{index}}"/>
+    <van-collapse value="{{ activeNames }}" bind:change="onChange">
+        <van-collapse-item title="查看详细内容" name="{{index}}">
+          <van-cell-group wx:if="{{list[index].des.length>0}}">
+            <van-cell label='{{list[index].des}}' border="{{false}}" />
+          </van-cell-group>
+          <van-cell-group wx:else>
+            <van-cell label='暂时没有详细内容哦~请自行查看！' border="{{false}}" />
+          </van-cell-group>
+        </van-collapse-item>
+      </van-collapse>
+  </view>
+    
+  </van-cell-group>
+  
+
+</view>
+
+<van-empty description="请更换搜索引擎再试试吧！" wx:else/>
+
+</van-skeleton>

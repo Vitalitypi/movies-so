@@ -1,0 +1,16 @@
+<!--pages/source/qianpan/info.wxml-->
+
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <van-empty description="资源较大请稍候！" wx:if="{{root==''}}"/>
+
+  <view wx:else style="margin-bottom: 10%;">
+    <van-cell-group inset>
+      <van-cell title="{{title}}（点我即可复制链接）" label="{{des}}" bindtap="copy"/>
+      <van-cell wx:if="{{pwd!=''}}" title="提取码（点击即可复制）：{{pwd}}" bindtap="copyPwd"/>
+      <van-cell title="资源详情如下：" border="{{false}}"/>
+      <van-cell wx:if="{{infos.length==0}}" label="请前往夸克网盘获取资源详情..." border="{{false}}"/>
+      <van-cell wx:for="{{infos}}" wx:key="index" label='{{item.text}}' border="{{false}}"/>
+    </van-cell-group>
+  </view>
+</van-skeleton>

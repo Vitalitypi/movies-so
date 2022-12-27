@@ -1,0 +1,26 @@
+<!--pages/source/qianpan/index.wxml-->
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <view style="margin-bottom: 10%;width: 100%;" wx:if="{{list.length!=0}}">
+  <van-cell-group inset>
+    <van-cell title="当前为：第{{page}}/{{totalPage}}页"/>
+  </van-cell-group>
+  <van-cell-group inset wx:for="{{list}}" wx:key="index">
+    <!-- <van-cell title="{{item.label}}" /> -->
+    <van-cell title="{{list[index].title}}" is-link url="./info?link={{list[index].link}}&title={{list[index].title}}&from={{list[index].from}}" />
+    <van-cell wx:for="{{list[index].des}}" label="{{item}}" border="{{false}}"/>
+
+    <van-cell label="数据来源：{{list[index].from}}" border="{{false}}"/>
+  </van-cell-group>
+  <view style="margin-left: 1%;margin-right: 1%;margin-top: 5%;">
+    <van-row>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="head" disabled='{{page==1}}'>首页</van-button></van-col>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="prev" disabled='{{page==1}}'>上页</van-button></van-col>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="next" disabled='{{page==totalPage}}'>下页</van-button></van-col>
+      <van-col span="5" offset='1'><van-button type="info" bindtap="getNewPage" data-sign="last" disabled='{{page==totalPage}}'>末  页</van-button></van-col>
+    </van-row>
+  </view>
+</view>
+
+<van-empty description="请更换搜索引擎再试试吧！" wx:else/>
+</van-skeleton>

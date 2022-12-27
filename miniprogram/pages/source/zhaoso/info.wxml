@@ -1,0 +1,13 @@
+<!--pages/source/zhaoso/info.wxml-->
+
+
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <van-empty description="资源较大请稍候！" wx:if="{{article==''}}"/>
+
+<view wx:else style="margin-bottom: 10%;">
+  <van-cell-group inset>
+    <van-cell title="{{title}}（点我即可复制内容）" bindtap="copy"/>
+    <van-cell wx:for="{{article.info}}" wx:key="index" label='{{item}}' border="{{false}}" />
+  </van-cell-group>
+</view>
+</van-skeleton>
