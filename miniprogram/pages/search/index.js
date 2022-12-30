@@ -5,8 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    top:[],
+    functions:['影视','资料','网盘','教程','考试'],
     value:'',
-    current:8,
+    current:4,
     // engine:'1、默认引擎（速度较快）',
     engines: ['1、资源简单（速度快）', '2、阿里盘搜（不推荐）', '3、电报（tg）搜索', '4、影视资源较多', '5、考试资源为主','6、学习资源较多','7、资源较为综合','8、优质资源（推荐）'],
     show:false,
@@ -87,8 +89,20 @@ Page({
         current:index
       })
     }
+    // console.log(Math.floor(Math.random()*100)+1)
+    // this.loadInfo()
   },
-
+  async loadInfo(){
+    const app = getApp()
+    let cloud = app.globalData['cloud']
+    await cloud.callFunction({
+      name:"getTop",
+      data:'',
+      success:res=>{
+        console.log(res.result)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

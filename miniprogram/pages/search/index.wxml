@@ -1,12 +1,15 @@
 <!--pages/search/index.wxml-->
 <view class="page" style="height: 100%;">
   
-  <view class="img" style="padding-bottom: 54%;">
+  <view class="img" style="padding-bottom: 46%;">
   <view style="width: 97%;text-align: right;">
     点击上方···添加到我的小程序
   </view>
   </view>
   <view>
+    <view class="label" style="display: flex;justify-content: center;">
+      <text style="margin: 3%;" wx:for="{{functions}}" wx:key="index">{{item}}</text>    
+    </view>
     <van-cell-group>
       <van-cell size='large' title="当前搜索引擎：" border='{{false}}' label="点击更换搜索引擎" title-width='50%' is-link bind:click="showPopup" value="{{engines[current-1]}}" />
     </van-cell-group>
@@ -25,6 +28,7 @@
   <text style="color: blue;text-decoration-line: underline;">使用说明</text>
   </view>
 
+<!-- 更换搜索引擎 -->
   <van-popup
     show="{{ show }}"
     round
