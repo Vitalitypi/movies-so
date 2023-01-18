@@ -5,7 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cloud:null,
     keyword:"",
     loading: true,
     list:[],

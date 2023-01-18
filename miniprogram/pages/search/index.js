@@ -6,7 +6,9 @@ Page({
    */
   data: {
     top:[],
-    functions:['影视','资料','网盘','教程','考试'],
+    newsFlag:false,
+    newsTop:[],
+    functions:['影视','资料','技能','教程','考试'],
     value:'',
     current:4,
     // engine:'1、默认引擎（速度较快）',
@@ -15,6 +17,30 @@ Page({
     textShow:false,
     pages:['small','nice','qianfan','yiso','upso','xueso','zhaoso','qianpan'],
     engineChanged:false,//记录搜索引擎是否变化
+    option1: [
+      { text: '全部商品', value: 0 },
+      { text: '新款商品', value: 1 },
+      { text: '活动商品', value: 2 },
+    ],
+    option2: [
+      { text: '默认排序', value: 'a' },
+      { text: '好评排序', value: 'b' },
+      { text: '销量排序', value: 'c' },
+    ],
+    value1: 0,
+    value2: 'a',
+  },
+  jumpTop(e){
+    let keyword = e.currentTarget.dataset.name
+    wx.navigateTo({
+      url: '../source/yiso/index?keyword='+keyword,
+    })
+  },
+  jumpNews(e){
+    let keyword = this.data.newsTop[parseInt(e.currentTarget.dataset.index)].note
+    wx.navigateTo({
+      url: '../news/index?keyword='+keyword,
+    })
   },
   openText(){
     this.setData({
@@ -61,12 +87,23 @@ Page({
       wx.setStorageSync('engine', this.data.current);
     }
     let keyword = this.data.value
+    this.addWord()
     this.setData({
       value:''
     })
     let page = this.data.pages[this.data.current-1]
     wx.navigateTo({
       url: '../source/'+page+'/index?keyword='+keyword,
+    })
+  },
+  async addWord(){
+    let db = wx.cloud.database()
+    db.collection("SearchTop").add({
+      data:{
+        type:true,
+        word:this.data.value,
+        time:new Date(),
+      }
     })
   },
   copy(e){
@@ -90,16 +127,35 @@ Page({
       })
     }
     // console.log(Math.floor(Math.random()*100)+1)
-    // this.loadInfo()
+    this.loadInfo()
+    this.weiboWord()
   },
-  async loadInfo(){
-    const app = getApp()
-    let cloud = app.globalData['cloud']
-    await cloud.callFunction({
-      name:"getTop",
-      data:'',
+  weiboWord(){
+    wx.cloud.callFunction({
+      name:"getTops",
+      data:{
+        type:'weiboWord'
+      },
+      success:res=>{
+        this.setData({
+          newsTop:res.result.info,
+          newsFlag:res.result.flag
+        })
+      }
+    })
+  },
+  loadInfo(){
+    let that = this
+    wx.cloud.callFunction({
+      name:"getTops",
+      data:{
+        type:'yisoTop'
+      },
       success:res=>{
         console.log(res.result)
+        that.setData({
+          top:res.result
+        })
       }
     })
   },

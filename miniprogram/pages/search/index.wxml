@@ -1,10 +1,10 @@
 <!--pages/search/index.wxml-->
 <view class="page" style="height: 100%;">
-  
-  <view class="img" style="padding-bottom: 46%;">
-  <view style="width: 97%;text-align: right;">
+  <view class="img" style="padding-bottom: 5%;">
+  <view style="width: 97%;text-align: right;margin-bottom: 5%;">
     点击上方···添加到我的小程序
   </view>
+  <ad unit-id="adunit-a4659ff83d19a95c" ad-type="video" ad-theme="white"></ad>
   </view>
   <view>
     <view class="label" style="display: flex;justify-content: center;">
@@ -14,18 +14,37 @@
       <van-cell size='large' title="当前搜索引擎：" border='{{false}}' label="点击更换搜索引擎" title-width='50%' is-link bind:click="showPopup" value="{{engines[current-1]}}" />
     </van-cell-group>
   </view>
+
   <van-search
     value="{{ value }}"
     shape="round"
     bind:search="onSearch"
     bind:change='onChange'
     placeholder="请输入搜索关键词"
-  />
-  <view class="btn" style="margin-top: 5%;width: 50%;margin-left: 25%;margin-bottom: 5%;">
+  >
+  </van-search>
+  
+
+  <view class="btn" style="margin-top: 5%;width: 50%;margin-left: 25%;margin-bottom: 2%;">
     <button type="primary" style="background-color: black;" bindtap="onSearch">搜索</button>
   </view>
-  <view class="discription" style="margin-top: 65%;justify-content: center;display: flex;" bindtap="openText">
-  <text style="color: blue;text-decoration-line: underline;">使用说明</text>
+
+  <view class="label" style="margin-bottom: 5%;">
+  <view>电影榜单：</view>
+      <text style="margin: 3%;color: blue;" bindtap="jumpTop" data-name="{{item.value}}" wx:for="{{top}}" wx:key="index">{{item.value}}</text>    
+  </view>
+  <view class="label"  style="height: 285rpx;" wx:if="{{newsFlag}}">
+    <view>新闻榜单：</view>
+    <scroll-view style="overflow-y: auto;height: 100%;" scroll-y="true">
+      <view wx:for="{{newsTop}}" style='margin-top:5px;height:30px;' wx:key="index">
+      <text style="color: blue;margin-left: 2%;" bindtap="jumpNews" data-index="{{index}}">{{index+1}}.{{item.note}}</text>
+      <text style="margin-left: 2%;">{{item.num}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="discription" style="margin-bottom: 8%;margin-top: 8%;justify-content: center;display: flex;" bindtap="openText">
+    <text style="color: blue;text-decoration-line: underline;">使用说明</text>
   </view>
 
 <!-- 更换搜索引擎 -->

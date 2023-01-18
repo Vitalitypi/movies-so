@@ -1,6 +1,8 @@
 <!--pages/source/xueso/index.wxml-->
 
 <van-skeleton title avatar row="3" loading="{{ loading }}">
+  <ad unit-id="adunit-a4659ff83d19a95c" ad-type="video" ad-theme="white"></ad>
+
   <view style="margin-bottom: 10%;" wx:if="{{list.length!=0}}">
   <van-cell-group inset>
     <van-cell title="当前为：第{{page}}/{{totalPage}}页"/>

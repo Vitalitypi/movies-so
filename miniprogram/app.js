@@ -1,21 +1,19 @@
 // app.js
 App({
   onLaunch: function () {
+    console.log("onLaunch")
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+    } else {
+      wx.cloud.init({
+        env: 'net-so-6gox7kcjb3d70607',
+        traceUser: true,
+      });
+    }
     this.autoUpdate()
     this.globalData = {
-      cloud:null
+
     };
-    this.getCloud()
-  },
-  getCloud(){
-    var cloud = new wx.cloud.Cloud({
-      // 资源方 AppID
-      resourceAppid: 'wx69a281169245d9dd',
-      // 资源方环境 ID
-      resourceEnv: 'vitality-demo-3gkc3akf11339670',
-    })
-    cloud.init()
-    this.globalData['cloud'] = cloud
   },
   //版本控制
   autoUpdate: function() {

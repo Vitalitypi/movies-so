@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "openapi": [
+    ]
+  },
+  "triggers":[
+    {
+      "name":"updateCoinByStudy",
+      "type":"timer",
+      "config":"0 0 3 * * * *"
+    }
+  ]
+}

@@ -5,7 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cloud:null,
     keyword:"",
     totalPage:1,
     page:1,
@@ -28,11 +27,9 @@ Page({
     wx.showLoading({
       title: '请稍后',
     })
-    const app = getApp()
-    let cloud = app.globalData['cloud']
     let that = this
     // 完成后正常使用资源方的已授权的云资源
-    await cloud.callFunction({
+    wx.cloud.callFunction({
       name:"fast_dog_cloud_so",
       data:{
         type:'6',
@@ -65,7 +62,6 @@ Page({
         wx.hideLoading()
         that.setData({
           loading:false,
-          cloud:cloud
         })
       }
     })

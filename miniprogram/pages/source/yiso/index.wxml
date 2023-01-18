@@ -1,5 +1,8 @@
 <!--pages/source/yiso/index.wxml-->
+
 <van-skeleton title avatar row="3" loading="{{ loading }}">
+  <ad unit-id="adunit-a4659ff83d19a95c" ad-type="video" ad-theme="white"></ad>
+
   <view style="margin-bottom: 10%;" wx:if="{{list.length!=0}}">
   <view style="margin-bottom: 4%;">
     <van-cell-group inset >

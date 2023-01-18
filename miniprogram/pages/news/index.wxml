@@ -1,0 +1,13 @@
+<!--pages/news/index.wxml-->
+<van-skeleton title avatar row="3" loading="{{ loading }}">
+  <view style="margin-bottom: 5%;">
+    <ad unit-id="adunit-89fba92438bd2ca6"></ad>
+    <van-cell-group inset>
+      <van-cell title="{{keyword}}" label="{{newsInfo.title}}"/>
+    </van-cell-group>
+    <van-cell-group inset>
+      <van-cell  wx:for="{{newsInfo.info}}" title="{{item.name}}" label="{{item.info}}"  border="{{false}}"/>
+    </van-cell-group>
+    <view wx:if="{{newsInfo.info.length>0}}" style='border:0;text-align: center;padding-top: 5%;padding-bottom: 3%;' ><text>-我是有底线的-</text></view>
+  </view>
+</van-skeleton>

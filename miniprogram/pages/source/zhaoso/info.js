@@ -27,9 +27,7 @@ Page({
       title: '请稍后',
     })
     let that = this
-    const app = getApp()
-    let cloud = app.globalData['cloud']
-    await cloud.callFunction({
+    wx.cloud.callFunction({
       name:"fast_dog_cloud_so",
       data:{
         type:'7-info',

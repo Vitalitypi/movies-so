@@ -10,4 +10,6 @@
     <van-cell wx:for="{{article.info}}" wx:key="index" label='{{item}}' border="{{false}}" />
   </van-cell-group>
 </view>
+<ad unit-id="adunit-a4659ff83d19a95c" ad-type="video" ad-theme="white"></ad>
+
 </van-skeleton>
