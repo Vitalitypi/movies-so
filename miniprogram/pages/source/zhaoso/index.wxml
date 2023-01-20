@@ -42,4 +42,5 @@
 </view>
 
 <van-empty description="请更换搜索引擎再试试吧！" wx:else/>
+<ad unit-id="adunit-d93150bbad1df62e"></ad>
 </van-skeleton>

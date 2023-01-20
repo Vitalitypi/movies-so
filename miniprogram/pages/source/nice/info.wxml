@@ -3,7 +3,7 @@
 
 <van-skeleton title avatar row="3" loading="{{ loading }}">
   <van-empty description="资源较大请稍候！" wx:if="{{root==''}}"/>
-
+  <ad unit-id="adunit-f1fba17d5bb07767"></ad>
 <view wx:if="{{root!=''}}" style="margin-bottom: 10%;">
   <view style="margin-bottom: 2%;">
     <van-cell-group inset>

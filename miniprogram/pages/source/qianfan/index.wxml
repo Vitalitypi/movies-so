@@ -23,5 +23,5 @@
 </view>
 
 <van-empty description="请更换搜索引擎再试试吧！" wx:if="{{list.length==0}}"/>
-
+<ad unit-id="adunit-f1fba17d5bb07767"></ad>
 </van-skeleton>

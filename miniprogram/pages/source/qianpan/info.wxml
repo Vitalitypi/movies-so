@@ -2,6 +2,7 @@
 
 
 <van-skeleton title avatar row="3" loading="{{ loading }}">
+  <ad unit-id="adunit-f1fba17d5bb07767"></ad>
   <van-empty description="资源较大请稍候！" wx:if="{{root==''}}"/>
 
   <view wx:else style="margin-bottom: 10%;">

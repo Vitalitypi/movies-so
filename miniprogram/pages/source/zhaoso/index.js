@@ -19,6 +19,9 @@ Page({
     this.setData({
       keyword:e.keyword
     })
+    wx.setNavigationBarTitle({
+      title: '"'+e.keyword+'"的搜索结果',
+    })
     //开始进行请求数据
     this.getInfo()
   },

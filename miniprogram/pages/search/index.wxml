@@ -4,12 +4,15 @@
   <view style="width: 97%;text-align: right;margin-bottom: 5%;">
     点击上方···添加到我的小程序
   </view>
-  <ad unit-id="adunit-a4659ff83d19a95c" ad-type="video" ad-theme="white"></ad>
+    <ad unit-id="adunit-d93150bbad1df62e"></ad>
   </view>
+
+
+
   <view>
-    <view class="label" style="display: flex;justify-content: center;">
-      <text style="margin: 3%;" wx:for="{{functions}}" wx:key="index">{{item}}</text>    
-    </view>
+    <van-tabs active="{{ active }}" bind:change="onChangeTab">
+      <van-tab wx:for="{{functions}}" title="{{item}}" wx:key="index"></van-tab>
+    </van-tabs>
     <van-cell-group>
       <van-cell size='large' title="当前搜索引擎：" border='{{false}}' label="点击更换搜索引擎" title-width='50%' is-link bind:click="showPopup" value="{{engines[current-1]}}" />
     </van-cell-group>
@@ -30,8 +33,18 @@
   </view>
 
   <view class="label" style="margin-bottom: 5%;">
-  <view>电影榜单：</view>
+  <view>搜索榜单：</view>
+    <view wx:if="{{current==1}}" style="height: 285rpx;">
+      <scroll-view style="overflow-y: auto;height: 100%;" scroll-y="true">
+            <view wx:for="{{top}}" style='margin-top:5px;height:30px;' wx:key="index">
+            <text style="color: blue;margin-left: 2%;" bindtap="copyLink" data-url="{{item.key}}">{{index+1}}.{{item.title}}</text>
+            <text style="margin-left: 2%;">{{item.why}}</text>
+            </view>
+      </scroll-view>
+    </view>
+    <view wx:else>
       <text style="margin: 3%;color: blue;" bindtap="jumpTop" data-name="{{item.value}}" wx:for="{{top}}" wx:key="index">{{item.value}}</text>    
+    </view>
   </view>
   <view class="label"  style="height: 285rpx;" wx:if="{{newsFlag}}">
     <view>新闻榜单：</view>

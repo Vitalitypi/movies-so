@@ -8,32 +8,24 @@ Page({
     top:[],
     newsFlag:false,
     newsTop:[],
-    functions:['影视','资料','技能','教程','考试'],
+    // functions:[{name:'综合',index:0},{name:'影视',index:3},{name:'考试',index:4},{name:'学习',index:5},{name:'优质',index:7}],
+    functions:['综合','影视','娱乐','学习'],
     value:'',
-    current:4,
+    current:1,
     // engine:'1、默认引擎（速度较快）',
     engines: ['1、资源简单（速度快）', '2、阿里盘搜（不推荐）', '3、电报（tg）搜索', '4、影视资源较多', '5、考试资源为主','6、学习资源较多','7、资源较为综合','8、优质资源（推荐）'],
     show:false,
     textShow:false,
     pages:['small','nice','qianfan','yiso','upso','xueso','zhaoso','qianpan'],
     engineChanged:false,//记录搜索引擎是否变化
-    option1: [
-      { text: '全部商品', value: 0 },
-      { text: '新款商品', value: 1 },
-      { text: '活动商品', value: 2 },
-    ],
-    option2: [
-      { text: '默认排序', value: 'a' },
-      { text: '好评排序', value: 'b' },
-      { text: '销量排序', value: 'c' },
-    ],
-    value1: 0,
-    value2: 'a',
+    
   },
   jumpTop(e){
     let keyword = e.currentTarget.dataset.name
+    let page = this.data.pages[this.data.current-1]
+    console.log(page)
     wx.navigateTo({
-      url: '../source/yiso/index?keyword='+keyword,
+      url: '../source/'+page+'/index?keyword='+keyword,
     })
   },
   jumpNews(e){
@@ -75,6 +67,18 @@ Page({
       value:e.detail
     })
   },
+  onChangeTab(e){
+    if(e.detail.index==3){
+      this.setData({
+        current:6
+      })
+    }else{
+      this.setData({
+        current:e.detail.index*3+1
+      })
+    }
+    this.loadInfo()
+  },
   onSearch(e){
     if(this.data.value.length==0){
       return
@@ -101,10 +105,21 @@ Page({
     db.collection("SearchTop").add({
       data:{
         type:true,
+        from:this.data.pages[this.data.current-1],
         word:this.data.value,
         time:new Date(),
       }
     })
+  },
+  copyLink(e){
+    wx.setClipboardData({
+			data: 'https://www.aliyundrive.com/s/'+e.currentTarget.dataset.url,
+			success: function () {
+				wx.showToast({
+					title: "链接已复制"
+				})
+			}
+		})
   },
   copy(e){
     wx.setClipboardData({
@@ -145,17 +160,25 @@ Page({
     })
   },
   loadInfo(){
+    wx.showLoading({
+      title: '请稍后',
+    })
     let that = this
     wx.cloud.callFunction({
       name:"getTops",
       data:{
-        type:'yisoTop'
+        type:this.data.pages[this.data.current-1]
       },
       success:res=>{
-        console.log(res.result)
         that.setData({
           top:res.result
         })
+      },
+      fail:err=>{
+        console.log(err)
+      },
+      complete:()=>{
+        wx.hideLoading()
       }
     })
   },
